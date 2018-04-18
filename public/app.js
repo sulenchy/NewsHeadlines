@@ -9,7 +9,9 @@
         responseContainer.innerHTML = '';
         searchedForText = searchField.value;
 
-        fetch(`http://api.nytimes.com/svc/search/v2/articlesearch.json?q=${searchedForText}&api-key=7f1d5f129a3d476f848a3065125a8c5b`)
+        // https://newsapi.org/v2/top-headlines?country=${searchedForText}&category=business&apiKey=b55e5dfc611648fe8751ac563c42680d
+
+        fetch(`https://newsapi.org/v2/top-headlines?country=${searchedForText}&category=business&apiKey=b55e5dfc611648fe8751ac563c42680d`)
             .then(response => response.json())
             .then(addArticles)
             .catch(err => requestError(err, 'image'));
@@ -23,11 +25,11 @@
             let htmlContent = '';
             //const data = JSON.parse(this.responseText);
 
-            if (data.response && data.response.docs && data.response.docs.length > 1) {
-                htmlContent = '<ul>' + data.response.docs.map(article =>
+            if (data.articles && data.articles.length > 1) {
+                htmlContent = '<ul>' + data.articles.map(article =>
                     `<li class="article">
-                    <h2><a href="${article.web_url}">${article.headline.main}</a></h2>
-                    <p>${article.snippet}</p></li>`
+                    <h2><a href="${article.url}">${article.title}</a></h2>
+                    <p>${article.description}</p></li>`
                 ).join('') + '</ul>';
             } else {
                 htmlContent = '<div class="error-no-articles">No articles available</div>';
