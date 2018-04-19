@@ -9,7 +9,7 @@
 <body>
 
     <header class="masthead">
-        <h1>What News Headlines are you interested in today? Search by country</h1>
+        <h1>What news headlines are you interested in today? Search by country</h1>
 
         <div class="site-container">
             <form id="search-form" action="#">
@@ -23,7 +23,19 @@
     <div class="site-container">
         <div id="response-container"></div>
     </div>
-
     <script src="app.js"></script>
+    <script>
+        // TODO 2.3 - Register the service worker
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(function (registration) {
+              console.log('Registered:', registration);
+            })
+            .catch(function (error) {
+              console.log('Registration failed: ', error);
+            });
+        }
+    </script>
+    
 </body>
 </html>
